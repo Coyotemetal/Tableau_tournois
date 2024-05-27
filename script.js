@@ -1,5 +1,8 @@
+document.addEventListener('DOMContentLoaded', (event) => {
+    chargerDonnees();
+});
+
 function ajouterLigne() {
-    // Récupérer les valeurs des champs du formulaire
     const pseudo = document.getElementById('pseudo').value;
     const mission = document.getElementById('mission').value;
     const equipe1 = document.getElementById('equipe1').value;
@@ -7,7 +10,6 @@ function ajouterLigne() {
     const equipe3 = document.getElementById('equipe3').value;
     const equipe4 = document.getElementById('equipe4').value;
 
-    // Créer une nouvelle ligne et ajouter les valeurs des champs
     const tableau = document.getElementById('tableau').getElementsByTagName('tbody')[0];
     const nouvelleLigne = tableau.insertRow();
 
@@ -17,7 +19,7 @@ function ajouterLigne() {
     nouvelleLigne.insertCell(3).textContent = equipe2;
     nouvelleLigne.insertCell(4).textContent = equipe3;
     nouvelleLigne.insertCell(5).textContent = equipe4;
-    
+
     const actionsCell = nouvelleLigne.insertCell(6);
     const editButton = document.createElement('button');
     editButton.textContent = 'Éditer';
@@ -25,8 +27,9 @@ function ajouterLigne() {
     editButton.onclick = function() { editerLigne(nouvelleLigne); };
     actionsCell.appendChild(editButton);
 
-    // Réinitialiser le formulaire
     document.getElementById('form').reset();
+
+    sauvegarderDonnees();
 }
 
 function editerLigne(ligne) {
@@ -63,6 +66,8 @@ function enregistrerLigne(ligne) {
     editButton.className = 'edit-button';
     editButton.onclick = function() { editerLigne(ligne); };
     actionsCell.appendChild(editButton);
+
+    sauvegarderDonnees();
 }
 
 function rechercherLigne() {
@@ -81,3 +86,23 @@ function rechercherLigne() {
         }
     }
 }
+
+function sauvegarderDonnees() {
+    const tableau = document.getElementById('tableau').getElementsByTagName('tbody')[0];
+    const lignes = tableau.getElementsByTagName('tr');
+    const donnees = [];
+
+    for (let i = 0; i < lignes.length; i++) {
+        const cellules = lignes[i].getElementsByTagName('td');
+        const ligneData = {
+            pseudo: cellules[0].textContent,
+            mission: cellules[1].textContent,
+            equipe1: cellules[2].textContent,
+            equipe2: cellules[3].textContent,
+            equipe3: cellules[4].textContent,
+            equipe4: cellules[5].textContent,
+        };
+        donnees.push(ligneData);
+    }
+
+    localStorage.setItem('tableauMissions', JSON.stringify(d
