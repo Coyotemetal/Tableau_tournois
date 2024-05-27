@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau des Missions</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form input {
+            margin-right: 10px;
+            padding: 5px;
+        }
+        form button {
+            padding: 5px 10px;
+        }
+        .edit-button, .save-button {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+        .search-container {
+            margin-bottom: 20px;
+        }
+        .search-container input {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .search-container button {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Tableau des Missions</h2>
+
+<div class="search-container">
+    <input type="text" id="searchPseudo" placeholder="Rechercher par Pseudo">
+    <button type="button" onclick="rechercherLigne()">Rechercher</button>
+</div>
+
+<form id="form">
+    <input type="text" id="pseudo" placeholder="Pseudo" required>
+    <input type="text" id="mission" placeholder="Mission" required>
+    <input type="text" id="equipe1" placeholder="Equipe 1" required>
+    <input type="text" id="equipe2" placeholder="Equipe 2" required>
+    <input type="text" id="equipe3" placeholder="Equipe 3" required>
+    <input type="text" id="equipe4" placeholder="Equipe 4" required>
+    <button type="button" onclick="ajouterLigne()">Ajouter</button>
+</form>
+
+<table id="tableau">
+    <thead>
+        <tr>
+            <th>Pseudo</th>
+            <th>Mission</th>
+            <th>Equipe 1</th>
+            <th>Equipe 2</th>
+            <th>Equipe 3</th>
+            <th>Equipe 4</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Les nouvelles lignes seront ajoutées ici -->
+    </tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
