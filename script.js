@@ -105,4 +105,31 @@ function sauvegarderDonnees() {
         donnees.push(ligneData);
     }
 
-    localStorage.setItem('tableauMissions', JSON.stringify(d
+    localStorage.setItem('tableauMissions', JSON.stringify(donnees));
+}
+
+function chargerDonnees() {
+    const donnees = JSON.parse(localStorage.getItem('tableauMissions'));
+
+    if (donnees) {
+        const tableau = document.getElementById('tableau').getElementsByTagName('tbody')[0];
+        tableau.innerHTML = '';
+
+        for (const ligneData of donnees) {
+            const nouvelleLigne = tableau.insertRow();
+            nouvelleLigne.insertCell(0).textContent = ligneData.pseudo;
+            nouvelleLigne.insertCell(1).textContent = ligneData.mission;
+            nouvelleLigne.insertCell(2).textContent = ligneData.equipe1;
+            nouvelleLigne.insertCell(3).textContent = ligneData.equipe2;
+            nouvelleLigne.insertCell(4).textContent = ligneData.equipe3;
+            nouvelleLigne.insertCell(5).textContent = ligneData.equipe4;
+
+            const actionsCell = nouvelleLigne.insertCell(6);
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Éditer';
+            editButton.className = 'edit-button';
+            editButton.onclick = function() { editerLigne(nouvelleLigne); };
+            actionsCell.appendChild(editButton);
+        }
+    }
+}
