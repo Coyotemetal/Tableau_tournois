@@ -95,3 +95,23 @@ input[type="text"] {
     border-radius: 5px;
     padding: 5px;
 }
+
+/* Styles for small screens */
+@media (max-width: 360px) {
+    body {
+        padding: 10px;
+    }
+
+    form, .search-container, table {
+        width: 100%;
+    }
+
+    form input, .search-container input, form button, .search-container button {
+        width: 90%;
+    }
+
+    th, td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}

@@ -27,6 +27,12 @@ function ajouterLigne() {
     editButton.onclick = function() { editerLigne(nouvelleLigne); };
     actionsCell.appendChild(editButton);
 
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Supprimer';
+    deleteButton.className = 'delete-button';
+    deleteButton.onclick = function() { supprimerLigne(nouvelleLigne); };
+    actionsCell.appendChild(deleteButton);
+
     document.getElementById('form').reset();
 
     sauvegarderDonnees();
@@ -66,6 +72,12 @@ function enregistrerLigne(ligne) {
     editButton.className = 'edit-button';
     editButton.onclick = function() { editerLigne(ligne); };
     actionsCell.appendChild(editButton);
+
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Supprimer';
+    deleteButton.className = 'delete-button';
+    deleteButton.onclick = function() { supprimerLigne(ligne); };
+    actionsCell.appendChild(deleteButton);
 
     sauvegarderDonnees();
 }
@@ -130,6 +142,19 @@ function chargerDonnees() {
             editButton.className = 'edit-button';
             editButton.onclick = function() { editerLigne(nouvelleLigne); };
             actionsCell.appendChild(editButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Supprimer';
+            deleteButton.className = 'delete-button';
+            deleteButton.onclick = function() { supprimerLigne(nouvelleLigne); };
+            actionsCell.appendChild(deleteButton);
         }
     }
 }
+
+function supprimerLigne(ligne) {
+    const tableau = document.getElementById('tableau').getElementsByTagName('tbody')[0];
+    tableau.deleteRow(ligne.rowIndex - 1);
+    sauvegarderDonnees();
+}
+
