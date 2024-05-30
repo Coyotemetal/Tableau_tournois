@@ -20,7 +20,20 @@ function ajouterLigne() {
     nouvelleLigne.insertCell(4).textContent = equipe3;
     nouvelleLigne.insertCell(5).textContent = equipe4;
 
-    const actionsCell = nouvelleLigne.insertCell(6);
+    // Ajouter les cases à cocher
+    const lsCell = nouvelleLigne.insertCell(6);
+    const lsCheckbox = document.createElement('input');
+    lsCheckbox.type = 'checkbox';
+    lsCheckbox.className = 'ls-checkbox';
+    lsCell.appendChild(lsCheckbox);
+
+    const t3Cell = nouvelleLigne.insertCell(7);
+    const t3Checkbox = document.createElement('input');
+    t3Checkbox.type = 'checkbox';
+    t3Checkbox.className = 't3-checkbox';
+    t3Cell.appendChild(t3Checkbox);
+
+    const actionsCell = nouvelleLigne.insertCell(8);
     const editButton = document.createElement('button');
     editButton.textContent = 'Éditer';
     editButton.className = 'edit-button';
@@ -41,10 +54,19 @@ function ajouterLigne() {
 function editerLigne(ligne) {
     const cellules = ligne.getElementsByTagName('td');
 
-    for (let i = 0; i < cellules.length - 1; i++) {
+    for (let i = 0; i < cellules.length - 3; i++) { // Update the length condition
         const contenu = cellules[i].textContent;
         cellules[i].innerHTML = `<input type="text" value="${contenu}">`;
     }
+
+    // Edit checkboxes
+    const lsCheckbox = cellules[6].getElementsByTagName('input')[0];
+    const lsChecked = lsCheckbox.checked;
+    cellules[6].innerHTML = `<input type="checkbox" class="ls-checkbox" ${lsChecked ? 'checked' : ''}>`;
+
+    const t3Checkbox = cellules[7].getElementsByTagName('input')[0];
+    const t3Checked = t3Checkbox.checked;
+    cellules[7].innerHTML = `<input type="checkbox" class="t3-checkbox" ${t3Checked ? 'checked' : ''}>`;
 
     const actionsCell = cellules[cellules.length - 1];
     actionsCell.innerHTML = '';
@@ -59,10 +81,17 @@ function editerLigne(ligne) {
 function enregistrerLigne(ligne) {
     const cellules = ligne.getElementsByTagName('td');
 
-    for (let i = 0; i < cellules.length - 1; i++) {
+    for (let i = 0; i < cellules.length - 3; i++) { // Update the length condition
         const input = cellules[i].getElementsByTagName('input')[0];
         cellules[i].textContent = input.value;
     }
+
+    // Save checkboxes
+    const lsCheckbox = cellules[6].getElementsByTagName('input')[0];
+    cellules[6].innerHTML = `<input type="checkbox" class="ls-checkbox" ${lsCheckbox.checked ? 'checked' : ''}>`;
+
+    const t3Checkbox = cellules[7].getElementsByTagName('input')[0];
+    cellules[7].innerHTML = `<input type="checkbox" class="t3-checkbox" ${t3Checkbox.checked ? 'checked' : ''}>`;
 
     const actionsCell = cellules[cellules.length - 1];
     actionsCell.innerHTML = '';
@@ -113,6 +142,8 @@ function sauvegarderDonnees() {
             equipe2: cellules[3].textContent,
             equipe3: cellules[4].textContent,
             equipe4: cellules[5].textContent,
+            ls: cellules[6].getElementsByTagName('input')[0].checked,
+            t3: cellules[7].getElementsByTagName('input')[0].checked
         };
         donnees.push(ligneData);
     }
@@ -136,7 +167,21 @@ function chargerDonnees() {
             nouvelleLigne.insertCell(4).textContent = ligneData.equipe3;
             nouvelleLigne.insertCell(5).textContent = ligneData.equipe4;
 
-            const actionsCell = nouvelleLigne.insertCell(6);
+            const lsCell = nouvelleLigne.insertCell(6);
+            const lsCheckbox = document.createElement('input');
+            lsCheckbox.type = 'checkbox';
+            lsCheckbox.className = 'ls-checkbox';
+            lsCheckbox.checked = ligneData.ls;
+            lsCell.appendChild(lsCheckbox);
+
+            const t3Cell = nouvelleLigne.insertCell(7);
+            const t3Checkbox = document.createElement('input');
+            t3Checkbox.type = 'checkbox';
+            t3Checkbox.className = 't3-checkbox';
+            t3Checkbox.checked = ligneData.t3;
+            t3Cell.appendChild(t3Checkbox);
+
+            const actionsCell = nouvelleLigne.insertCell(8);
             const editButton = document.createElement('button');
             editButton.textContent = 'Éditer';
             editButton.className = 'edit-button';
@@ -157,4 +202,3 @@ function supprimerLigne(ligne) {
     tableau.deleteRow(ligne.rowIndex - 1);
     sauvegarderDonnees();
 }
-

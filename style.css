@@ -72,7 +72,7 @@ td {
     background-color: #000;
 }
 
-.edit-button, .save-button {
+.edit-button, .save-button, .delete-button {
     cursor: pointer;
     color: #ff0;
     background: none;
